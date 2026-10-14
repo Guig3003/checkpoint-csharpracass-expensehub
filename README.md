@@ -1,5 +1,34 @@
 # Checkpoint 2 — ExpenseHub
 
+## Implementação
+
+Esta cópia contém uma API corporativa de reembolsos com ASP.NET Core 10, Identity,
+JWT bearer e SQLite via Entity Framework Core. O banco `expensehub.db` é criado
+automaticamente na inicialização. As roles obrigatórias são criadas de forma
+idempotente; somente o Admin inicial é criado pelo seed, usando as variáveis
+`EXPENSEHUB_ADMIN_EMAIL` e `EXPENSEHUB_ADMIN_PASSWORD` (nunca versionadas).
+
+Para executar localmente:
+
+```powershell
+$env:EXPENSEHUB_ADMIN_EMAIL="admin@empresa.com"
+$env:EXPENSEHUB_ADMIN_PASSWORD="SenhaSegura1"
+dotnet restore ./sources/ExpenseHub.slnx
+dotnet build ./sources/ExpenseHub.slnx
+dotnet test ./sources/ExpenseHub.slnx
+dotnet run --project ./sources/ExpenseHub.Api/ExpenseHub.Api.csproj
+```
+
+O endpoint `GET /health` confirma a inicialização. Use `POST /register` para
+criar usuários sem role e o Admin deve atribuir roles via
+`PUT /api/admin/users/{id}/roles`. O token de `POST /login` deve ser enviado
+como `Authorization: Bearer <token>`. As transições e regras de ownership são
+validadas no servidor e o histórico é persistido junto com cada alteração.
+
+Para ambientes persistentes, configure também `Jwt__Key` com uma chave secreta
+de pelo menos 32 bytes. Se omitida, uma chave efêmera é gerada para a execução
+local e os tokens deixam de ser válidos após reiniciar a aplicação.
+
 Checkpoint de C# em grupos de até 3 pessoas para construção de uma Application Programming Interface (API) corporativa de reembolsos.
 
 O prazo de entrega é **13 de outubro de 2026**. O grupo deverá implementar autenticação, autorização, fluxo de aprovação e reprovação, pagamento simulado, histórico e testes unitários.

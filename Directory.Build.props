@@ -25,6 +25,10 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
 
+    <!-- A API não publica documentação XML; SA1201 do StyleCop 1.1.118
+         também não suporta RecordDeclaration do C# moderno. -->
+    <NoWarn>$(NoWarn);CS1591;SA1122;AD0001;IDE0011;IDE2003</NoWarn>
+
     <!-- Desabilita implicit usings (System, System.Linq, etc.). -->
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>

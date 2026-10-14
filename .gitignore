@@ -50,3 +50,6 @@ Desktop.ini
 appsettings.Development.json
 appsettings.Local.json
 secrets.json
+*.db
+*.db-shm
+*.db-wal
